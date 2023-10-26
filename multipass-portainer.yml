@@ -1,0 +1,39 @@
+---
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+package_update: true
+packages:
+  - docker
+  - avahi-daemon
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+
+write_files:
+  - content: |
+      ---
+      services:
+        portainer:
+          image: portainer/portainer-ce:latest
+          ports:
+            - 8000:8000 
+            - 9443:9443
+            - 9000:9000
+          volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - portainer_data:/data portainer/
+      volumes:
+        portainer_data:
+    path: /stack/compose.yml
+    append: false
+runcmd:
+  - sudo curl -fsSL https://get.docker.com | sudo bash
+  - sudo systemctl enable docker
+  - sudo systemctl enable -s HUP ssh
+  - sudo groupadd docker
+  - sudo usermod -aG docker ubuntu
+  - cd /stack && docker compose up -d

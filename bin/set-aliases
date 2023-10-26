@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+alias mpstart="sh -c ./bin/start-instance"
+alias mpstop="sh -c ./bin/stop-instance"
+alias mplaunch="sh -c ./bin/launch-instance"
+alias mplistip="sh -c ./bin/list-ip-instance"
+alias mpkill="sh -c ./bin/kill-instance"
+alias mpstatus="sh -c ./bin/get-status-instance"

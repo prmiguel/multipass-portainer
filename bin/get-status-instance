@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+IP=$(multipass list | grep portainer | awk 'NR==1{print $2}')
+echo $IP 
